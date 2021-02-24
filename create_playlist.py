@@ -18,4 +18,8 @@ class CreatePlaylist:
     def create_playlist(self):
         pass
 
-    
+    def get_spotify_uri(self):
+        pass
+
+    def add_song_to_spotify_playlist(self):
+        pass
