@@ -21,7 +21,7 @@ class CreatePlaylist:
 
     def get_liked_videos(self):
         pass
-    
+    #Creates a new PlayList 
     def create_playlist(self):
 
         request_body = json.dumps({
@@ -35,24 +35,46 @@ class CreatePlaylist:
             query,
             data= request_body,
             headers= {
-                "Content-Type: application/json",
-                "Authorization: Bearer {}".format(spotify_token)
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {}".format(spotify_tokens)
             }
         )
 
         response_json = response.json()
-
+# returns the playlist ID
         return response_json["id"]
 
 
 # Search for a Song 
     def get_spotify_uri(self, song_name, artist):
 
-        query = "https://api.spotify.com/v1/search?q=Muse&type=track%2Cartist&market=US&limit=10&offset=5"
+        query = "https://api.spotify.com/v1/search?query=track%3A{}+artist%3A{}&type=track&offset=0&limit=20".format(
+            song_name,
+            artist
+        )
+        
+        response = requests.get(
+            query,
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {}".format(spotify_tokens)
+            }
+        )
+
+        response_json = response.json()
+        songs = response_json["tracks"]["items"]
+        uri = songs[0]["uri"]
+
+        return uri
 
 
     def add_song_to_spotify_playlist(self):
         pass
+
+
+
+
+
 
 if __name__ == '__main__':
     cp = CreatePlaylist()
