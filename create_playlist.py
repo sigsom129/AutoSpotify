@@ -40,9 +40,20 @@ class CreatePlaylist:
             }
         )
 
+        response_json = response.json()
 
-    def get_spotify_uri(self):
-        pass
+        return response_json["id"]
+
+
+# Search for a Song 
+    def get_spotify_uri(self, song_name, artist):
+
+        query = "https://api.spotify.com/v1/search?q=Muse&type=track%2Cartist&market=US&limit=10&offset=5"
+
 
     def add_song_to_spotify_playlist(self):
         pass
+
+if __name__ == '__main__':
+    cp = CreatePlaylist()
+    cp.add_song_to_spotify_playlist()
