@@ -72,8 +72,7 @@ class CreatePlaylist:
         pass
 
 
-# LOL
-
+# THis SHOULD've BEEN DONE WEEKS AGO 
 
 
 if __name__ == '__main__':
