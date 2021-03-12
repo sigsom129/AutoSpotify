@@ -81,7 +81,6 @@ class CreatePlaylist:
                 # Using our function we created
                 "spotify_uri": self.get_spotify_uri(song_name, artist)
 
-
             }
 
 
@@ -144,7 +143,27 @@ class CreatePlaylist:
 
 
     def add_song_to_spotify_playlist(self):
-        pass
+        # Add all the liked videos from youtube into the spotify playlist
+        self.get_liked_videos()
+        
+        #collect all the uri
+        uris = [info["sportiy_uri"] for song, info in self.all_song_info.items()]
+
+        playlist_id = self.create_playlist()
+
+        request_data = json.dumps(uris)
+
+        query = "https://api.spotify.com/v1/playlists/{}/tracks".format(
+            playlist_id)
+
+        response = requests.post(
+            query,
+            data=request_data,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": "Bearer {}".format(spotify_token)
+            }
+        )
 
 
 
