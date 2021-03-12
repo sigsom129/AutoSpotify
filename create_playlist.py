@@ -9,6 +9,13 @@ import requests
 from secrets import spotify_user_id
 from secrets import spotify_token
 
+import os
+
+import google_auth_oauthlib.flow
+import googleapiclient.discovery
+import googleapiclient.errors
+
+
 
 class CreatePlaylist:
 
