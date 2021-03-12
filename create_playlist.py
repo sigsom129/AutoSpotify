@@ -4,12 +4,14 @@
 # Step 4: Create Search for the Song 
 # Step 5: Add the Song to the spotify playlist
 
+import os
 import json
 import requests
+import youtube_dl
 from secrets import spotify_user_id
 from secrets import spotify_token
 
-import os
+
 
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
@@ -22,6 +24,9 @@ class CreatePlaylist:
     def __init__(self):
         self.user_id = spotify_user_id
         self.spotify_tokens = spotify_token
+        self.youtube_client = self.get_youtube_client()
+
+# Getting the YOUTUBE API to work with application
 
     def get_youtube_client(self):
     # Disable OAuthlib's HTTPS verification when running locally.
@@ -45,10 +50,48 @@ class CreatePlaylist:
 
 
 
-
+# Grabbing liked videos on youtube
 
     def get_liked_videos(self):
-        pass
+        request = self.youtube_client.videos().list(
+            part="snippet,contentDetails,statistics",
+            myRating="like"
+        )
+
+        response = request.execute()
+
+        #grabbing the information of the videos 
+        for item in response["items"]:
+            video_title = item["snippet"]["title"]
+            youtube_url = "https://www.youtube.com/watch?v={}".format(
+                item["id"])
+
+        #use youtube_dl to collect the song name and artist name
+        video = youtube_dl.YoutubeDL({}).extract_info(
+                youtube_url, download=False)
+        song_name = video["track"]
+        artist = video["artist"]
+
+        if song_name is not None and artist is not None:
+            # save the information if the info given isn't none
+            self.all_song_info[video_title] = {
+                "youtube_url": youtube_url,
+                "song_name": song_name,
+                "artist": artist,
+                # Using our function we created
+                "spotify_uri": self.get_spotify_uri(song_name, artist)
+
+
+            }
+
+
+
+    
+
+
+
+
+
     #Creates a new PlayList 
     def create_playlist(self):
 
@@ -96,6 +139,8 @@ class CreatePlaylist:
         uri = songs[0]["uri"]
 
         return uri
+
+
 
 
     def add_song_to_spotify_playlist(self):
