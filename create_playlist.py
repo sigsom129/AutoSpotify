@@ -30,7 +30,22 @@ class CreatePlaylist:
 
         api_service_name = "youtube"
         api_version = "v3"
-        client_secrets_file = "YOUR_CLIENT_SECRET_FILE.json"
+        client_secrets_file = "client_secrets.json"
+
+            # Get credentials and create an API client
+        scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
+        flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
+            client_secrets_file, scopes)
+        credentials = flow.run_console()
+
+        youtube = googleapiclient.discovery.build(
+        api_service_name, api_version, credentials=credentials)
+
+        return youtube
+
+
+
+
 
     def get_liked_videos(self):
         pass
