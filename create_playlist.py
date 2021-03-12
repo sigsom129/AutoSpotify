@@ -41,6 +41,7 @@ class CreatePlaylist:
         )
 
         response_json = response.json()
+        
 # returns the playlist ID
         return response_json["id"]
 
@@ -72,8 +73,6 @@ class CreatePlaylist:
         pass
 
 
-# THis SHOULD've BEEN DONE WEEKS AGO 
-# What should you do with your life
 
 
 if __name__ == '__main__':
