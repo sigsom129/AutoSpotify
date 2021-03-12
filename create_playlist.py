@@ -41,8 +41,9 @@ class CreatePlaylist:
         )
 
         response_json = response.json()
-        
+
 # returns the playlist ID
+# Need the playlist ID to add specific songs to the playlist
         return response_json["id"]
 
 
