@@ -8,10 +8,10 @@ import os
 import json
 import requests
 import youtube_dl
+
 from secrets import spotify_user_id
 from secrets import spotify_token
-
-
+from exceptions import ResponseException
 
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
@@ -164,6 +164,14 @@ class CreatePlaylist:
                 "Authorization": "Bearer {}".format(spotify_token)
             }
         )
+
+                # check for valid response status
+        if response.status_code != 200:
+            raise ResponseException(response.status_code)
+
+        response_json = response.json()
+        return response_json
+
 
 
 
