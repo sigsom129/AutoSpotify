@@ -1,0 +1,4 @@
+# spotify secret information
+
+spotify_token = "BQAu6Gh8sKC5hmNRe6WMq9Lrw8DPNOYx7ek8bL-MQmCxS5Zw24Gl0zASfRCuBF0Pu2HvFzKm4g5GrzIIWSjEDlD_IXfXrXS-hJq74N4xZb_dcuDyhjbWh-9qJ63YojaumC8ySPVo1Yby7ElZ-XxGkdoG-4FkcDxLcooA8-_8qf7Vq2eg2lB5B7tE9zVLhNgWh0Vpx4ahZP4ns-_dE2dSzcEYKGNX2wQdNw",
+spotify_user_id = "1224600322"

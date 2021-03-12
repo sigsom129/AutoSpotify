@@ -22,8 +22,9 @@ import googleapiclient.errors
 class CreatePlaylist:
 
     def __init__(self):
+        self.all_song_info = {}
         self.user_id = spotify_user_id
-        self.spotify_tokens = spotify_token
+        self.spotify_token = spotify_token
         self.youtube_client = self.get_youtube_client()
 
 # Getting the YOUTUBE API to work with application
@@ -35,7 +36,7 @@ class CreatePlaylist:
 
         api_service_name = "youtube"
         api_version = "v3"
-        client_secrets_file = "client_secrets.json"
+        client_secrets_file = "client_secret.json"
 
             # Get credentials and create an API client
         scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
@@ -77,17 +78,11 @@ class CreatePlaylist:
             self.all_song_info[video_title] = {
                 "youtube_url": youtube_url,
                 "song_name": song_name,
-                "artist": artist,
+                "artists": artist,
                 # Using our function we created
                 "spotify_uri": self.get_spotify_uri(song_name, artist)
 
             }
-
-
-
-    
-
-
 
 
 
@@ -106,7 +101,7 @@ class CreatePlaylist:
             data= request_body,
             headers= {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer {}".format(spotify_tokens)
+                "Authorization": "Bearer {}".format(self.spotify_token)
             }
         )
 
@@ -129,7 +124,7 @@ class CreatePlaylist:
             query,
             headers = {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer {}".format(spotify_tokens)
+                "Authorization": "Bearer {}".format(self.spotify_token)
             }
         )
 
@@ -161,7 +156,7 @@ class CreatePlaylist:
             data=request_data,
             headers={
                 "Content-Type": "application/json",
-                "Authorization": "Bearer {}".format(spotify_token)
+                "Authorization": "Bearer {}".format(self.spotify_token)
             }
         )
 
