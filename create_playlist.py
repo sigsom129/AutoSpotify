@@ -68,7 +68,7 @@ class CreatePlaylist:
                 item["id"])
 
         #use youtube_dl to collect the song name and artist name
-        video = youtube_dl.YoutubeDL({}).extract_info(
+        video = youtube_dl.YoutubeDL().extract_info(
                 youtube_url, download=False)
         song_name = video["track"]
         artist = video["artist"]
