@@ -24,7 +24,13 @@ class CreatePlaylist:
         self.spotify_tokens = spotify_token
 
     def get_youtube_client(self):
-        pass
+    # Disable OAuthlib's HTTPS verification when running locally.
+    # *DO NOT* leave this option enabled in production.
+        os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+        api_service_name = "youtube"
+        api_version = "v3"
+        client_secrets_file = "YOUR_CLIENT_SECRET_FILE.json"
 
     def get_liked_videos(self):
         pass
